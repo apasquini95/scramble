@@ -477,7 +477,7 @@ if (method_exists(Enum::class, 'only')) {
             'anyOf' => [
                 ['type' => 'string', 'const' => 'draft'],
                 ['type' => 'string', 'const' => 'archived'],
-            ]
+            ],
         ]);
     });
 
@@ -492,7 +492,7 @@ if (method_exists(Enum::class, 'only')) {
             'anyOf' => [
                 ['type' => 'string', 'const' => 'published'],
                 ['type' => 'string', 'const' => 'archived'],
-            ]
+            ],
         ]);
     });
 }

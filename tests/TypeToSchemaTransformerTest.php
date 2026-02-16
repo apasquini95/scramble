@@ -85,11 +85,11 @@ it('transforms nullable unions', function ($type, $openApiArrayed) {
         new NullType,
     ]), [
         'anyOf' => [
-            [ 'type' => 'null' ],
-            [ 'type' => 'string', 'const' => 'idle' ],
-            [ 'type' => 'string', 'const' => 'charging' ],
-            [ 'type' => 'string', 'const' => 'discharging' ],
-        ]
+            ['type' => 'null'],
+            ['type' => 'string', 'const' => 'idle'],
+            ['type' => 'string', 'const' => 'charging'],
+            ['type' => 'string', 'const' => 'discharging'],
+        ],
     ]],
 ]);
 
