@@ -56,11 +56,11 @@ it('supports whenHas', function () {
                 'anyOf' => [
                     [
                         'type' => 'string',
-                        'enum' => ['foo'],
+                        'const' => 'foo',
                     ],
                     [
                         'type' => 'integer',
-                        'enum' => [42],
+                        'const' => 42,
                     ],
                 ],
             ],
@@ -103,8 +103,8 @@ it('supports match with throw', function () {
         'properties' => [
             'property' => [
                 'anyOf' => [
-                    ['type' => 'string', 'enum' => ['foo']],
-                    ['type' => 'integer', 'enum' => [123]],
+                    ['type' => 'string', 'const' => 'foo'],
+                    ['type' => 'integer', 'const' => 123],
                 ],
             ],
         ],
