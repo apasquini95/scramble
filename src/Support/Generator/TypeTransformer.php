@@ -204,15 +204,17 @@ class TypeTransformer
                 $literalSchemas = [];
 
                 if ($stringLiterals->count()) {
-                    $items[] = $literalSchemas[] = (new StringType)->enum(
-                        $stringLiterals->map->value->unique()->values()->toArray() // @phpstan-ignore property.notFound
-                    );
+                    // @phpstan-ignore property.notFound
+                    foreach ($stringLiterals->map->value->unique() as $stringLiteral) {
+                        $items[] = $literalSchemas[] = (new StringType)->const($stringLiteral);
+                    }
                 }
 
                 if ($integerLiterals->count()) {
-                    $items[] = $literalSchemas[] = (new IntegerType)->enum(
-                        $integerLiterals->map->value->unique()->values()->toArray() // @phpstan-ignore property.notFound
-                    );
+                    // @phpstan-ignore property.notFound
+                    foreach ($integerLiterals->map->value->unique() as $integerLiteral) {
+                        $items[] = $literalSchemas[] = (new IntegerType)->const($integerLiteral);
+                    }
                 }
 
                 // In case $otherTypes consist just of null and there is string or integer literals, make type nullable
