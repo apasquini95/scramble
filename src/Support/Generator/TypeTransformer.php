@@ -210,7 +210,7 @@ class TypeTransformer
                         );
                     } else {
                         $items[] = (new StringType)->const($stringLiterals->first()->value);
-                    }    
+                    }
                 }
 
                 if ($integerLiteralsCount = $integerLiterals->count()) {
@@ -220,7 +220,7 @@ class TypeTransformer
                         );
                     } else {
                         $items[] = (new IntegerType)->const($integerLiterals->first()->value);
-                    } 
+                    }
                 }
 
                 // In case $otherTypes consist just of null and there is string or integer literals, make type nullable
