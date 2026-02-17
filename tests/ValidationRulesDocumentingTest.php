@@ -474,10 +474,8 @@ if (method_exists(Enum::class, 'only')) {
         $params = ($this->buildRulesToParameters)($rules)->handle();
 
         expect($params[0]->toArray()['schema'])->toBe([
-            'anyOf' => [
-                ['type' => 'string', 'const' => 'draft'],
-                ['type' => 'string', 'const' => 'archived'],
-            ],
+            'type' => 'string',
+            'enum' => [ 'draft', 'archived' ],
         ]);
     });
 
@@ -489,10 +487,8 @@ if (method_exists(Enum::class, 'only')) {
         $params = ($this->buildRulesToParameters)($rules)->handle();
 
         expect($params[0]->toArray()['schema'])->toBe([
-            'anyOf' => [
-                ['type' => 'string', 'const' => 'published'],
-                ['type' => 'string', 'const' => 'archived'],
-            ],
+            'type' => 'string', 
+            'enum' => [ 'published', 'archived' ],
         ]);
     });
 }
