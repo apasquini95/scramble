@@ -203,24 +203,30 @@ class TypeTransformer
                 $items = array_map($this->transform(...), $otherTypes->values()->toArray()); // @phpstan-ignore argument.type
                 $literalSchemas = [];
 
-                if ($stringLiterals->count()) {
-                    // @phpstan-ignore property.notFound
-                    foreach ($stringLiterals->map->value->unique() as $stringLiteral) {
-                        $items[] = $literalSchemas[] = (new StringType)->const($stringLiteral);
-                    }
+                if ($stringLiteralsCount = $stringLiterals->count()) {
+                    if ($stringLiteralsCount > 1) {
+                        $items[] = $literalSchemas[] = (new StringType)->enum(
+                            $stringLiterals->map->value->unique()->values()->toArray() // @phpstan-ignore property.notFound
+                        );
+                    } else {
+                        $items[] = (new StringType)->const($stringLiterals->first()->value);
+                    }    
                 }
 
-                if ($integerLiterals->count()) {
-                    // @phpstan-ignore property.notFound
-                    foreach ($integerLiterals->map->value->unique() as $integerLiteral) {
-                        $items[] = $literalSchemas[] = (new IntegerType)->const($integerLiteral);
-                    }
+                if ($integerLiteralsCount = $integerLiterals->count()) {
+                    if ($integerLiteralsCount > 1) {
+                        $items[] = $literalSchemas[] = (new IntegerType)->enum(
+                            $integerLiterals->map->value->unique()->values()->toArray() // @phpstan-ignore property.notFound
+                        );
+                    } else {
+                        $items[] = (new IntegerType)->const($integerLiterals->first()->value);
+                    } 
                 }
 
                 // In case $otherTypes consist just of null and there is string or integer literals, make type nullable
                 $otherTypesIsNullable = count($otherTypes) === 1 && collect($otherTypes)->contains(fn ($t) => $t instanceof \Dedoc\Scramble\Support\Type\NullType);
-                if ($otherTypesIsNullable && ($stringLiterals->count() || $integerLiterals->count())) {
-                    // $items = array_map(fn ($s) => $s->nullable(true), $literalSchemas);
+                if ($otherTypesIsNullable && count($literalSchemas)) {
+                    $items = array_map(fn ($s) => $s->nullable(true), $literalSchemas);
                 }
 
                 // Removing duplicated schemas before making a resulting AnyOf type.

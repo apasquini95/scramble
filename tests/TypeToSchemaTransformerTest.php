@@ -83,14 +83,7 @@ it('transforms nullable unions', function ($type, $openApiArrayed) {
         new LiteralStringType('charging'),
         new LiteralStringType('discharging'),
         new NullType,
-    ]), [
-        'anyOf' => [
-            ['type' => 'null'],
-            ['type' => 'string', 'const' => 'idle'],
-            ['type' => 'string', 'const' => 'charging'],
-            ['type' => 'string', 'const' => 'discharging'],
-        ],
-    ]],
+    ]), [ 'type' => ['string', 'null'], 'enum' => ['idle', 'charging', 'discharging'] ]],
 ]);
 
 it('gets json resource type', function () {

@@ -1,4 +1,3 @@
 anyOf:
     - { type: string }
-    - { type: string, const: foo }
-    - { type: string, const: bar }
+    - { type: string, enum: [foo, bar] }
